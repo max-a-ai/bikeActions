@@ -60,6 +60,14 @@ true label : Riding  [CORRECT]
 saved GIF  : demo_output.gif
 ```
 
+## Examples
+
+One correctly classified sample per class (bone model), rendered by `demo.py`:
+
+| Walking | Standing | Riding | Turning-L | Turning-R |
+|---------|----------|--------|-----------|-----------|
+| ![Walking](assets/example_walking.gif) | ![Standing](assets/example_standing.gif) | ![Riding](assets/example_riding.gif) | ![Turning-L](assets/example_turningl.gif) | ![Turning-R](assets/example_turningr.gif) |
+
 ## Train
 
 Train from scratch on the bundled splits (writes the best checkpoint and

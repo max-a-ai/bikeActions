@@ -15,8 +15,10 @@ venv/
 /runs/
 *.gif
 *.log
-work_dir/
 wandb/
+
+# ...but keep the committed example GIFs shown in the README.
+!assets/*.gif
 
 # Tooling caches
 .ruff_cache/
