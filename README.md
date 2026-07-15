@@ -89,6 +89,10 @@ Two pretrained checkpoints ship in `checkpoints/`. Held-out accuracy:
 **Use the bone model** (the demo defaults to it) — the bone modality (relative
 joint offsets) is far more discriminative here than raw joint positions.
 
+Training from scratch reproduces the bone checkpoint: a fresh
+`uv run python train.py --modality b --epochs 100 --seed 1` reaches **0.954 val**
+/ **0.920 test**, matching the shipped model.
+
 ## Repository layout
 
 ```
