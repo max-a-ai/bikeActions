@@ -1,0 +1,29 @@
+# Reference research code (kept locally, not part of the published repo)
+/skateformer/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# uv
+# (uv.lock IS committed for reproducibility)
+
+# Training / demo artifacts
+/runs/
+*.gif
+*.log
+work_dir/
+wandb/
+
+# Tooling caches
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/

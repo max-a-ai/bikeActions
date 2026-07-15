@@ -1,0 +1,83 @@
+[project]
+name = "bikeactions"
+version = "0.1.0"
+description = "SkateFormer-based skeleton action recognition for cyclist/pedestrian scenes (bikeActions)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "torch==2.6.0",
+    "timm>=0.9.12",
+    "numpy>=1.24",
+    "matplotlib>=3.7",
+    "imageio>=2.31",
+    "pillow>=10.0",
+    "scikit-learn>=1.3",
+    "tqdm>=4.65",
+]
+
+[project.optional-dependencies]
+wandb = ["wandb>=0.16"]
+
+[dependency-groups]
+dev = ["pytest>=8.0"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/bikeact"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+src = ["src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "C4"]
+# Vendored research model kept close to upstream; don't fight its style.
+per-file-ignores = { "src/bikeact/model.py" = ["E501", "B", "SIM", "UP", "C4"] }
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+mypy_path = "src"
+files = ["src/bikeact", "train.py", "demo.py"]
+
+# The SkateFormer implementation is vendored research code; type-checking it
+# strictly is out of scope. Everything else in the repo is checked strictly.
+[[tool.mypy.overrides]]
+module = "bikeact.model"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = [
+    "numpy.*",
+    "torch.*",
+    "timm.*",
+    "sklearn.*",
+    "imageio.*",
+    "matplotlib.*",
+    "tqdm.*",
+    "wandb.*",
+    "pytest.*",
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.uv]
+package = true
+
+# GPU build of PyTorch (CUDA 12.4) — compatible with driver >= 545 (incl. this
+# repo's 4090 on driver 560). CPU-only users can drop this and the [tool.uv.sources]
+# entry, or point it at the cpu index (https://download.pytorch.org/whl/cpu).
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu124" }
